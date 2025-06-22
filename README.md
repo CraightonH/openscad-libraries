@@ -2,6 +2,8 @@
 Personal libraries for OpenSCAD
 
 # Dependencies
+
+### BOSL2
 I've included [BOSL2](https://github.com/BelfrySCAD/BOSL2) in this repository for convenience. I've read that their releases aren't the easiest to follow due to a lack of semantic versioning. If you already have the BOSL2 library, you may not need to download the copy in this repo unless you experience errors.
 
 # Dominoes
