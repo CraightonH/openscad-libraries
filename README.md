@@ -13,7 +13,7 @@ This library creates all permutations of a standard domino.
 |-|-|-|
 | `block` | `[0, 0]` | This creates a block with the given number of pips per half. |
 | `dimensions` | `[24, 24 * 2, 24 / 3]` | Customizes the shape of the block. Defaults to a "standard" size domino. |
-| `pip_radius` | `(24 / 15)` | Customizes the pip hole size |
+| `pip_radius` | `24 / 15` | Customizes the pip hole size |
 
 #### Example
 ```
