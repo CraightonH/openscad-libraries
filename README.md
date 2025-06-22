@@ -9,12 +9,13 @@ This library creates all permutations of a standard domino.
 
 | parameter | default | description |
 |-|-|-|
-| `block` | `[0, 0]` | This creates a block with the given number of pips per half. `[6, 2]` is equivalent to `[2, 6]` meaning the both create the same block. |
+| `block` | `[0, 0]` | This creates a block with the given number of pips per half. |
 | `dimensions` | `[24, 24 * 2, 24 / 3]` | Customizes the shape of the block. Defaults to a "standard" size domino. |
 | `pip_radius` | `(24 / 15)` | Customizes the pip hole size |
 
 #### Example
 ```
+include <domino.scad>
 // all permutations of a domino
 for (y = [0:1:6]) {
     for (x = [y:1:6]) {
@@ -22,4 +23,4 @@ for (y = [0:1:6]) {
     }
 }
 ```
-![dominoes example](images/examples/dominoes.png)
+![domino example](images/examples/domino.png)

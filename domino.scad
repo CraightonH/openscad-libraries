@@ -1,5 +1,5 @@
 include <dependencies/BOSL2/std.scad>
-module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15), chamfer=.5) {
+module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15), block_chamfer=.5) {
     assert(block[0] > -1, "Top block number must not be negative.");
     assert(block[0] < 7, "Top block number must be less than 7.");
     assert(block[1] > -1, "Bottom block number must not be negative.");
@@ -25,7 +25,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
     difference() {
         // domino block
         color("white")
-            cuboid(dimensions, anchor=LEFT+BOTTOM+FRONT, chamfer=chamfer);
+            cuboid(dimensions, anchor=LEFT+BOTTOM+FRONT, chamfer=block_chamfer);
 
         // middle line
         color("black")
@@ -33,7 +33,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
                 yrot(180) zrot(90)
                     prismoid([1, dimensions[0] * .9], [0, dimensions[0] * .75], h=1.1);
 
-        // 
+        // draw domino face
         determine_face(block);
     }
 
@@ -43,7 +43,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
                 sphere(r=pip_radius);
     }
 
-    module pip_face_1(flip=true) {
+    module pip_face_1(flip=false) {
         if (flip) {
             pip_mask([2, 5]);
         } else {
@@ -51,7 +51,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
         }
     }
 
-    module pip_face_2(flip=true) {
+    module pip_face_2(flip=false) {
         if (flip) {
             pip_mask([1, 4]);
             pip_mask([3, 6]);
@@ -61,7 +61,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
         }
     }
 
-    module pip_face_3(flip=true) {
+    module pip_face_3(flip=false) {
         if (flip) {
             pip_mask([1, 4]);
             pip_mask([2, 5]);
@@ -73,7 +73,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
         }
     }
 
-    module pip_face_4(flip=true) {
+    module pip_face_4(flip=false) {
         if (flip) {
             pip_mask([1, 4]);
             pip_mask([1, 6]);
@@ -87,7 +87,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
         }
     }
 
-    module pip_face_5(flip=true) {
+    module pip_face_5(flip=false) {
         if (flip) {
             pip_mask([1, 4]);
             pip_mask([1, 6]);
@@ -103,7 +103,7 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
         }
     }
 
-    module pip_face_6(flip=true) {
+    module pip_face_6(flip=false) {
         if (flip) {
             pip_mask([1, 4]);
             pip_mask([1, 5]);
@@ -122,139 +122,32 @@ module domino(block=[0, 0], dimensions=[24, 24 * 2, 24 / 3], pip_radius=(24 / 15
     }
 
     module determine_face(block=[0, 0]) {
-        // 0 pips; 0 pips
-        if (block == [0, 0]) {
-        } else 
-        // 0 pips; 1 pip
-        if (block == [0, 1]) {
+        if (block[0] == 1) {
+            pip_face_1(true);
+        } else if (block[0] == 2) {
+            pip_face_2(true);
+        } else if (block[0] == 3) {
+            pip_face_3(true);
+        } else if (block[0] == 4) {
+            pip_face_4(true);
+        } else if (block[0] == 5) {
+            pip_face_5(true);
+        } else if (block[0] == 6) {
+            pip_face_6(true);
+        }
+
+        if (block[1] == 1) {
             pip_face_1();
-        } else 
-        // 0 pips; 2 pips
-        if (block == [0, 2]) {
+        } else if (block[1] == 2) {
             pip_face_2();
-        } else
-        // 0 pips; 3 pips
-        if (block == [0, 3]) {
+        } else if (block[1] == 3) {
             pip_face_3();
-        } else
-        // 0 pips; 4 pips
-        if (block == [0, 4]) {
+        } else if (block[1] == 4) {
             pip_face_4();
-        } else
-        // 0 pips; 5 pips
-        if (block == [0, 5]) {
+        } else if (block[1] == 5) {
             pip_face_5();
-        } else
-        // 0 pips; 6 pips
-        if (block == [0, 6]) {
+        } else if (block[1] == 6) {
             pip_face_6();
-        } else
-        // 1 pip; 1 pip
-        if (block == [1, 1]) {
-            pip_face_1(false);
-            pip_face_1();
-        } else
-        // 1 pip; 2 pips
-        if (block == [1, 2]) {
-            pip_face_1(false);
-            pip_face_2();
-        } else
-        // 1 pip; 3 pips
-        if (block == [1, 3]) {
-            pip_face_1(false);
-            pip_face_3();
-        } else
-        // 1 pip; 4 pips
-        if (block == [1, 4]) {
-            pip_face_1(false);
-            pip_face_4();
-        } else
-        // 1 pip; 5 pips
-        if (block == [1, 5]) {
-            pip_face_1(false);
-            pip_face_5();
-        } else
-        // 1 pip; 6 pips
-        if (block == [1, 6]) {
-            pip_face_1(false);
-            pip_face_6();
-        } else
-        // 2 pips; 2 pips
-        if (block == [2, 2]) {
-            pip_face_2(false);
-            pip_face_2();
-        } else
-        // 2 pips; 3 pips
-        if (block == [2, 3]) {
-            pip_face_2(false);
-            pip_face_3();
-        } else
-        // 2 pips; 4 pips
-        if (block == [2, 4]) {
-            pip_face_2(false);
-            pip_face_4();
-        } else
-        // 2 pips; 5 pips
-        if (block == [2, 5]) {
-            pip_face_2(false);
-            pip_face_5();
-        } else
-        // 2 pips; 6 pips
-        if (block == [2, 6]) {
-            pip_face_2(false);
-            pip_face_6();
-        } else
-        // 3 pips; 3 pips
-        if (block == [3, 3]) {
-            pip_face_3(false);
-            pip_face_3();
-        } else
-        // 3 pips; 4 pips
-        if (block == [3, 4]) {
-            pip_face_3(false);
-            pip_face_4();
-        } else
-        // 3 pips; 5 pips
-        if (block == [3, 5]) {
-            pip_face_3(false);
-            pip_face_5();
-        } else
-        // 3 pips; 6 pips
-        if (block == [3, 6]) {
-            pip_face_3(false);
-            pip_face_6();
-        } else
-        // 4 pips; 4 pips
-        if (block == [4, 4]) {
-            pip_face_4(false);
-            pip_face_4();
-        } else
-        // 4 pips; 5 pips
-        if (block == [4, 5]) {
-            pip_face_4(false);
-            pip_face_5();
-        } else
-        // 4 pips; 6 pips
-        if (block == [4, 6]) {
-            pip_face_4(false);
-            pip_face_6();
-        } else
-        // 5 pips; 5 pips
-        if (block == [5, 5]) {
-            pip_face_5(false);
-            pip_face_5();
-        } else
-        // 5 pips; 6 pips
-        if (block == [5, 6]) {
-            pip_face_5(false);
-            pip_face_6();
-        } else
-        // 6 pips; 6 pips
-        if (block == [6, 6]) {
-            pip_face_6(false);
-            pip_face_6();
-        } else {
-            determine_face([block[1], block[0]]);
         }
     }
 }
