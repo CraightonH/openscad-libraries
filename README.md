@@ -26,3 +26,33 @@ for (y = [0:1:6]) {
 }
 ```
 ![domino example](images/examples/domino.png)
+
+
+# Stackable Blocks
+This library creates stackable blocks.
+
+## block.scad
+| parameter | default | description |
+|-|-|-|
+| `dimensions` | `[31.5, 31.5, 19.1]` | Customizes the block's dimensions |
+| `wall_thickness` | `1.3` | Customizes the block's wall thickness |
+| `peg_height` | `4.5` | Customizes the peg's height |
+| `peg_diameter` | `9.3` | Customizes the peg's diameter |
+| `peg_spacing` | `15.75` | Customizes the peg's space between each other |
+| `underside_tube_diameter` | `13.1` | Customizes the underside tube's diameter |
+| `underside_spine_length` | `2` | Customizes the underside spines' length |
+| `underside_spine_thickness` | `1` | Customizes the underside spines' thickness |
+| `underside_spine_distance_from_center` | `8` | Customizes the underside spines' distance from center |
+
+#### Example
+```
+include <stackable-block/block.scad>
+// blocks
+width = 31.5;
+for (x = [0:1:1]) {
+    for (y = [0:1:1]) {
+        move([x*width,y*width,0]) block();
+    }
+}
+```
+![block example](images/examples/stackable-block.png)
