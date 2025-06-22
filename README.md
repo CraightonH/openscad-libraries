@@ -1,5 +1,5 @@
 # openscad-libraries
-Personal libraries for OpenSCAD
+Personal libraries for [OpenSCAD](https://openscad.org/)
 
 # Dependencies
 
